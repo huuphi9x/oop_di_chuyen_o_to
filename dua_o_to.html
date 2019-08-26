@@ -1,0 +1,93 @@
+
+<!DOCT;YPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+</head>
+<body>
+<div id="game"></div>
+<div id="game2"></div>
+<!--<img id="car" src="images/anh1.png"-->
+<!--     style="position: absolute; left: 0px; top: 0px;" height="194.5px" width="275px"/>-->
+<script>
+    let Car = function (image, top, left, width, height, speed) {
+        this.image = image;
+        this.top = top;
+        this.left = left;
+        this.width = width;
+        this.height = height;
+        this.speed = speed;
+        this.getCarElement = function () {
+            return '<img width="' + this.width + 'px"' +
+                ' height="' + this.height + 'px"' +
+                ' src="' + this.image + '"' +
+                ' style="top: ' + this.top + 'px; left:' + this.left + 'px;position:absolute;" />';
+        };
+
+        this.moveRight = function () {
+            this.left += speed;
+            this.image = 'images/anh1.png';
+        };
+
+
+        this.moveLeft = function () {
+            this.left -= speed;
+            this.image = 'images/anh3.png';
+        };
+
+        this.moveUp = function () {
+            this.top -= speed;
+            this.image = 'images/anh4.png';
+        };
+
+        this.moveDown = function () {
+            this.top += speed;
+            this.image = 'images/anh2.png';
+        };
+    };
+    let car = new Car('images/anh1.png', 0, 0, 275, 194.5, 10);
+    let firstTop = car.top;
+    let firstLeft = car.left;
+    let maxLeft = window.innerWidth - car.left - car.width;
+    let maxTop = window.innerHeight - car.top - car.height;
+
+    function run() {
+        if (car.left < maxLeft && car.top <= firstTop) {
+            car.moveRight();
+        } else if (car.left >= maxLeft && car.top < maxTop) {
+            car.moveDown();
+        } else if (car.left > firstLeft && car.top >= maxTop) {
+            car.moveLeft();
+        } else if (car.left <= firstLeft && car.top > firstTop) {
+            car.moveUp();
+        }
+        document.getElementById('game').innerHTML = car.getCarElement();
+        setTimeout(run, Math.random()*30);
+    }
+
+    let car1 = new Car('images/anh1.png', 200,200, 275, 194.5, 8);
+    let firstTop1 = car1.top;
+    let firstLeft1 = car1.left;
+    let maxLeft1 = window.innerWidth - car1.left - car1.width;
+    let maxTop1 = window.innerHeight - car1.top - car1.height;
+
+    function run2() {
+        if (car1.left < maxLeft1 && car1.top <= firstTop1) {
+            car1.moveRight();
+        } else if (car1.left >= maxLeft1 && car1.top < maxTop1) {
+            car1.moveDown();
+        } else if (car1.left > firstLeft1 && car1.top >= maxTop1) {
+            car1.moveLeft();
+        } else if (car1.left <= firstLeft1 && car1.top > firstTop1) {
+            car1.moveUp();
+        }
+        document.getElementById('game2').innerHTML = car1.getCarElement();
+        setTimeout(run2, Math.random()*30);
+    }
+
+    run();
+    run2();
+</script>
+</body>
+</html>
